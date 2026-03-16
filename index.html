@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFuture - Home</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    
+    
+    <style>
+        
+        .hero-section {
+            position: relative;
+            background: linear-gradient(rgba(26, 77, 46, 0.75), rgba(26, 77, 46, 0.9));
+            color: var(--surface-color);
+            text-align: center;
+            padding: 5rem 2rem;
+            border: 2px solid chartreuse;
+            border-radius: var(--radius-lg);
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        
+        .hero-section h2 {
+            color: var(--surface-color);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        
+        .hero-section p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .section-title{
+            color: var(--text-light);
+        }
+
+        .text-center {
+            color: var(--text-light);
+        }
+        
+        .tiles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        
+        .visual-tile {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            text-decoration: none;
+            box-shadow: var(--shadow-soft);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        
+        .visual-tile img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        
+        .visual-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .visual-tile:hover img {
+            transform: scale(1.1);
+        }
+
+        
+        .tile-overlay {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(transparent, rgba(26, 77, 46, 0.95));
+            width: 100%;
+            padding: 2rem 1rem 1rem 1rem;
+        }
+
+        .tile-title {
+            color: var(--surface-color);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="climate change logo">
+                <div class="logo-text">Eco<span>Future</span></div>
+            </div>
+            <nav class="main_nav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Simulator</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="/Users/thanujanlalichchanthiran/Downloads/climate change/untitled folder/index.html">Team</a></li>
+                    <li><a href="#">UserProfile</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+                </nav>
+            <button class="menu-toggle"></button>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        
+        <section class="hero-section">
+            <h2>Take Action for Our Planet</h2>
+            <p>Climate change is the defining crisis of our time. It is happening even more quickly than we feared. But we are far from powerless in the face of this global threat. SDG 13 calls for urgent action to combat climate change and its impacts.</p>
+            <a href="#######" class="btn btn-accent">Try the Impact Simulator</a>
+        </section>
+
+        
+        <section class="mb-3">
+            <h3 class="section-title">Key Insights</h3>
+            <div class="card-grid">
+                
+                
+                <article class="card">
+                    <img src="https://media.istockphoto.com/id/1502556757/photo/blue-ice-in-the-gullet-antarctica.jpg?s=612x612&w=0&k=20&c=5qoO0CDFXEfKpNcHaV8Uq9QmNDdYSb9w0jLjdSfA2dA=" alt="Melting ice reflecting climate change" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Why Climate Change Matters</h4>
+                        <p class="card-desc">The effects of climate change are already visible and will become catastrophic unless we act.</p>
+                        <ul class="card-list">
+                            <li>Rising sea levels threatening cities</li>
+                            <li>Extreme weather events increasing</li>
+                            <li>Mass shifts in ecosystems</li>
+                            <li>Threats to global food security</li>
+                        </ul>
+                    </div>
+                </article>
+
+                
+                <article class="card">
+                    <img src="https://media.istockphoto.com/id/1394885991/photo/volunteer-man-and-plastic-bottle-clean-up-day-collecting-waste-on-sea-beach.jpg?s=612x612&w=0&k=20&c=lCZYUf4RPDJ7LdpVO-1q4zUUd6jkc974a9f6aFqaOOk=" alt="Person sorting recycling" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Actions Students Can Take</h4>
+                        <p class="card-desc">You don't need to be a policymaker to make a difference. Small daily habits add up.</p>
+                        <ul class="card-list">
+                            <li>Reduce, reuse, and recycle</li>
+                            <li>Use public transport or cycle</li>
+                            <li>Minimize energy consumption</li>
+                            <li>Advocate for campus sustainability</li>
+                        </ul>
+                    </div>
+                </article>
+
+                
+                <article class="card">
+                    <img src="https://media.istockphoto.com/id/1179633351/photo/nature-and-technology-abstract-concept-robot-hand-and-natural-hand-covered-with-grass.jpg?s=612x612&w=0&k=20&c=oIrNivd6U6lJfaf2sFEQydQo4ojRW-H5atud7xXF_Eo=" alt="Green city integrating nature" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Benefits of Sustainable Living</h4>
+                        <p class="card-desc">Transitioning to a green lifestyle has profound benefits beyond just the environment.</p>
+                        <ul class="card-list">
+                            <li>Cleaner air and better health</li>
+                            <li>Financial savings on energy bills</li>
+                            <li>Creation of green economy jobs</li>
+                            <li>Preserving nature for future generations</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+        <br>
+        
+        <section class="mb-3">
+            <h3 class="section-title">Deep Dive Topics</h3>
+            <p class="text-center">Explore detailed research compiled by our student team on various facets of climate change.</p>
+            
+            <div class="tiles-container">
+                
+                <a href="content_ST1.html" class="visual-tile">
+                    <img src="https://media.istockphoto.com/id/1368045713/photo/coal-power-plant-and-environmental-pollution.jpg?s=612x612&w=0&k=20&c=f25EJPU46-m9ulvNzsTpjEh4lUS91bXC5tMptIKo68w=" alt="Pollution">
+                    <div class="tile-overlay">
+                        <h4 class="tile-title">Causes & Effects</h4>
+                    </div>
+                </a>
+
+                <a href="content_ST2.html" class="visual-tile">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=600" alt="Wind Turbines">
+                    <div class="tile-overlay">
+                        <h4 class="tile-title">Renewable Energy</h4>
+                    </div>
+                </a>
+
+                <a href="content_ST3.html" class="visual-tile">
+                    <img src="https://media.istockphoto.com/id/1280157339/photo/aerial-view-of-green-grass-forest-with-tall-pine-trees-and-blue-bendy-river-flowing-through.jpg?s=612x612&w=0&k=20&c=jfZfoCkAcYNmnqlh1nyhDF2ou7wc_lhNqU9qGF95gJk=" alt="Forest and River">
+                    <div class="tile-overlay">
+                        <h4 class="tile-title">Ecosystem Impacts</h4>
+                    </div>
+                </a>
+
+                <a href="content_ST4.html" class="visual-tile">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80&w=600" alt="Globe and Hands">
+                    <div class="tile-overlay">
+                        <h4 class="tile-title">Global Policies</h4>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><span class="footerblack">About</span>EcoFuture</h3>
+                <p>EcoFuture is dedicated to creating awareness and driving action towards SDG 13: Climate Action. Together, we build a sustainable future for our planet.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3><span class="footerblack">Quick</span>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="#">UserProfile</a></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-section">
+                <h3><span class="footerblack">More</span>Info</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Page Editor</a></li>
+                    <li><a href="#">Validation</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                    <li><a href="#">Team</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 EcoFuture. All rights reserved.</p>
+            <p>Committed to SDG 13: Climate Action for a Sustainable Future</p>
+        </div>
+    </footer>
+</body>
+</html>
