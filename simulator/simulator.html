@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDG Action Impact Simulator</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI';
+            background: linear-gradient(135deg, #1b7607 0%, #000000 100%);
+            background-attachment: fixed;
+            color: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER AND NAVIGATION ===== */
+        header {
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #4fa875;
+        }
+
+        .header-container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            gap: 20px;
+        }
+
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            height: 55px;
+            width: 55px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 4px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+        }
+
+        .logo-text span {
+            color: #4fa875;
+            font-weight: 700;
+        }
+
+        /* Navigation Menu */
+        .main_nav {
+            margin-left: auto;
+        }
+
+        .main_nav ul {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .main_nav li a {
+            display: block;
+            padding: 8px 14px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            text-transform: capitalize;
+            letter-spacing: 0px;
+            white-space: nowrap;
+        }
+
+        .main_nav li a:hover {
+            color: #4fa875;
+            border-bottom-color: #4fa875;
+        }
+
+        .main_nav li a.active {
+            color: #4fa875;
+            border-bottom-color: #4fa875;
+            font-weight: 600;
+        }
+
+        /* Menu Toggle Button (Mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #4fa875;
+            cursor: pointer;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 12px 0;
+                gap: 15px;
+            }
+
+            .main_nav ul {
+                gap: 3px;
+            }
+
+            .main_nav li a {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .logo-container img {
+                height: 45px;
+                width: 45px;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main_nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #f8f9fa;
+                border-bottom: 2px solid #4fa875;
+                order: 3;
+                width: 100%;
+            }
+
+            .main_nav.active {
+                display: block;
+            }
+
+            .main_nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .main_nav li a {
+                padding: 12px 20px;
+                border-bottom: 1px solid #eee;
+                border-left: 4px solid transparent;
+                text-align: left;
+                width: 100%;
+                color: #333;
+            }
+
+            .main_nav li a:hover,
+            .main_nav li a.active {
+                border-left-color: #4fa875;
+                background-color: #f0f7f4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 10px 0;
+            }
+
+            .logo-container img {
+                height: 35px;
+                width: 35px;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .main_nav li a {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+        }
+        
+
+        /* ===== PAGE INTRO SECTION ===== */
+        .page-intro {
+            text-align: center;
+            padding: 50px 30px;
+            background: rgba(27, 118, 7, 0.3);
+            border-bottom: 2px solid rgba(126, 232, 79, 0.3);
+            border-radius:12px ;
+        }
+
+        .page-intro h1 {
+            font-size: 42px;
+            color: #7ee84f;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-intro p {
+            font-size: 16px;
+            color: #b8d4b1;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #302f2f;
+            color: #d9f7d7;
+            padding: 50px 30px;
+            border-top: 2px solid #4fa875;
+            border-radius: 12px 12px 0 0;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #87b79c;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footerblack {
+            color: #000000;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            color: #aef2c7;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #68a773;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #02e12f;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ddd;
+            padding-top: 30px;
+            text-align: center;
+            color: #1ddc0f;
+            font-size: 13px;
+        }
+
+        .footer-bottom p {
+            margin: 10px 0;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 768px) {
+            .footer {
+                padding: 40px 20px;
+            }
+
+            .footer-container {
+                gap: 30px;
+                margin-bottom: 30px;
+            }
+
+            .footer-section h3 {
+                font-size: 14px;
+            }
+
+            .footer-links a {
+                font-size: 13px;
+            }
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 1. Main Container for Action Cards Grid */
+        .simulator-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 2. Individual Action Card Styling */
+        .action-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #1b7607;
+            position: relative;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-card.selected {
+            border-left-color: #7ee84f;
+            background: linear-gradient(135deg, #f5fff0 0%, #e8ffe5 100%);
+            box-shadow: 0 0 20px rgba(126, 232, 79, 0.4);
+        }
+
+        /* 3. Card Image Styling */
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 4. Card Content Area */
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1b5c0a;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .impact-points {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1b7607;
+            background: rgba(126, 232, 79, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .selection-indicator {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #1b7607;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .action-card.selected .selection-indicator {
+            background: #1b7607;
+            border-color: #1b7607;
+        }
+
+        .selection-indicator::after {
+            content: '✓';
+            display: none;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .action-card.selected .selection-indicator::after {
+            display: flex;
+        }
+        
+        /* 5. Feedback Section Styling */
+        .impact-feedback {
+            background: rgba(27, 118, 7, 0.2);
+            border: 2px solid #1b7607;
+            color: #f0f0f0;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(126, 232, 79, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .impact-feedback h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #7ee84f;
+            text-shadow: 0 0 10px rgba(126, 232, 79, 0.3);
+        }
+
+        .total-impact {
+            font-size: 48px;
+            font-weight: 700;
+            color: #a8ff6f;
+            margin: 15px 0;
+            text-shadow: 0 0 15px rgba(126, 232, 79, 0.5);
+        }
+
+        .impact-level {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 15px 0;
+            color: #7ee84f;
+        }
+
+        .impact-message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #d0d0d0;
+            margin-top: 15px;
+        }
+
+        .reset-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #1b7607, #2aa80e);
+            color: white;
+            border: 2px solid #7ee84f;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 232, 79, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #2aa80e, #1b7607);
+            box-shadow: 0 6px 20px rgba(126, 232, 79, 0.5);
+            color: #a8ff6f;
+        }
+
+        /* Impact Level Colors */
+        .impact-low { color: #ffb74d; }
+        .impact-medium { color: #7ee84f; }
+        .impact-high { color: #58db47; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .logo h1 {
+                font-size: 22px;
+            }
+
+            nav.navbar ul {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+
+            nav.navbar a {
+                padding: 10px 15px;
+                border-bottom: none;
+                border-left: 4px solid transparent;
+                width: 100%;
+            }
+
+            nav.navbar a:hover,
+            nav.navbar a.active {
+                border-left-color: #7ee84f;
+                border-bottom: none;
+            }
+
+            .page-intro h1 {
+                font-size: 28px;
+            }
+
+            .page-intro p {
+                font-size: 14px;
+            }
+
+            .simulator-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 30px 15px;
+            }
+            
+            .impact-feedback {
+                margin: 20px 15px;
+                padding: 30px;
+            }
+            
+            .total-impact {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                padding: 10px;
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            nav.navbar a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .page-intro {
+                padding: 30px 15px;
+            }
+
+            .page-intro h1 {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .page-intro p {
+                font-size: 12px;
+            }
+
+            .simulator-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px 10px;
+            }
+
+            .impact-feedback {
+                margin: 15px 10px;
+                padding: 20px;
+            }
+
+            .impact-feedback h2 {
+                font-size: 22px;
+            }
+
+            .total-impact {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+
+
+
+
+<!-- Body part starts with here-->
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="climate change logo">
+                <div class="logo-text">Eco<span>Future</span></div>
+            </div>
+            <nav class="main_nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#" class="active">Simulator</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="D:\Semester 2\WEB DESIGN & DEVELOPMENT\CW\team\team.html">Team</a></li>
+                    <li><a href="#">UserProfile</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+                </nav>
+            <button class="menu-toggle"></button>
+        </div>
+    </header>
+    <main>
+        <section class="page-intro">
+            <h1>SDG 13: Climate Action Impact Simulator</h1>
+            <p>Select the climate actions you would take and discover your potential impact. Each action contributes to building a sustainable future for our planet.</p>
+        </section>
+
+        <!-- Feedback Summary Section (appears before cards initially, updates dynamically) -->
+        <div class="impact-feedback">
+            <h2>Your Climate Impact</h2>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.8);">Select actions to calculate your impact</p>
+            <div class="total-impact" id="totalPoints">0</div>
+            <div class="impact-level" id="impactLevel">Start by selecting actions</div>
+            <div class="impact-message" id="impactMessage"></div>
+            <button class="reset-btn" onclick="resetSimulator()">Reset Results</button>
+        </div>
+
+        <!-- Action Cards Container -->
+        <div class="simulator-container" id="actionCardsContainer">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><span class="footerblack">About</span>EcoFuture</h3>
+                <p>EcoFuture is dedicated to creating awareness and driving action towards SDG 13: Climate Action. Together, we build a sustainable future for our planet.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3><span class="footerblack">Quick</span>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="#">UserProfile</a></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-section">
+                <h3><span class="footerblack">More</span>Info</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Page Editor</a></li>
+                    <li><a href="#">Validation</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                    <li><a href="D:\Semester 2\WEB DESIGN & DEVELOPMENT\CW\team\team.html">Team</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 EcoFuture. All rights reserved.</p>
+            <p>Committed to SDG 13: Climate Action for a Sustainable Future</p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <script src="simulator.js"></script>
+</body>
+</html>
