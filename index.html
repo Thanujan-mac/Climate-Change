@@ -12,7 +12,7 @@
         
         .hero-section {
             position: relative;
-            background: linear-gradient(rgba(26, 77, 46, 0.75), rgba(26, 77, 46, 0.9));
+            background: linear-gradient(135deg, #1b7607 0%, #000000 100%);
             color: var(--surface-color);
             text-align: center;
             padding: 5rem 2rem;
@@ -107,6 +107,88 @@
     </style>
 </head>
 <body>
+    <div class="splash-screen" id="splashScreen">
+        <!-- Background Image -->
+        <div class="splash-background"></div>
+        
+        <!-- Overlay for text readability -->
+        <div class="splash-overlay"></div>
+        
+        <div class="splash-content">
+            <!-- Website Title -->
+            <h1 class="splash-title">Eco Future</h1>
+            
+            <!-- CSS Loader Animation -->
+            <div class="loader" id="loader">
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+            </div>
+            
+            <!-- Website Mission -->
+            <p class="splash-mission">
+                Empowering communities with real-time climate data and actionable insights to combat climate change and achieve SDG 13: Climate Action.
+                Together, we build a sustainable future.
+            </p>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-container">
+                <p class="countdown-text">Entering site in <span id="countdown">4</span>...</p>
+            </div>
+            
+            <!-- Group Members -->
+            <div class="group-members">
+                <h3>Group Members</h3>
+                <ul>
+                    <li>PRASANNA S. (20232015)</li>
+                    <li>THANUJAN L. (20250002)</li>
+                    <li>AHMED ARHAB N. (20250181)</li>
+                </ul>
+            </div>
+            
+            <!-- Skip Button -->
+            <button class="skip-btn" id="skipBtn" onclick="skipIntro()">Skip Intro</button>
+        </div>
+    </div>
+
+    <script>
+        let countdownValue = 4;
+        let autoRedirectTimer;
+        let countdownTimer;
+
+        // Countdown Timer Function
+        function startCountdown() {
+            countdownTimer = setInterval(function() {
+                countdownValue--;
+                document.getElementById('countdown').textContent = countdownValue;
+
+                if (countdownValue <= 0) {
+                    clearInterval(countdownTimer);
+                    showMainContent();
+                }
+            }, 1000);
+        }
+
+        // Skip Intro Function
+        function skipIntro() {
+            clearInterval(countdownTimer);
+            showMainContent();
+        }
+
+        // Show main content and hide splash screen
+        function showMainContent() {
+            const splashScreen = document.getElementById('splashScreen');
+            const mainContent = document.getElementById('mainContent');
+            if (splashScreen) splashScreen.style.display = 'none';
+            if (mainContent) mainContent.style.display = 'block';
+        }
+
+        // Start the countdown when page loads
+        window.addEventListener('load', function() {
+            startCountdown();
+        });
+    </script>
+
     <header>
         <div class="header-container">
             <div class="logo-container">
